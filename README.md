@@ -31,3 +31,7 @@ function numberToStringWithComma(number) {
     return s
 }
 ```
+
+### Easy access for routing
+https://gist.github.com/branneman/8048520
+<script src="https://gist.github.com/branneman/8048520.js"></script>
