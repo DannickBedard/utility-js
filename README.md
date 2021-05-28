@@ -35,3 +35,9 @@ function numberToStringWithComma(number) {
 ### Easy access for routing
 https://gist.github.com/branneman/8048520
 <script src="https://gist.github.com/branneman/8048520.js"></script>
+
+### Get timezone
+```
+console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
+```
+
