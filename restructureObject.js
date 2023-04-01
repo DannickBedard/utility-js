@@ -64,10 +64,10 @@ var expetedOutPut = {
 restructurObject({ expetedOutPut: expetedOutPut, json: test });
 
 function restructurObject({ expetedOutPut, json }) {
-  return handleMainProcess(json);
+  return handleMainProcess(json, expetedOutPut);
 }
 
-function handleMainProcess(json) {
+function handleMainProcess(json, expetedOutPut) {
   let jsonToReturn = [];
 
   handleJson(json).forEach((currentItem) => {
