@@ -1,20 +1,26 @@
-/*
-TODO :: Faire les testes avec un array dans l'objet
-
-*/
-
+const VALUE_OBJECT = "";
 var test = [
   {
     id: 1,
     name: "patate",
     description: "pour faire des frittes",
     price: 0.76,
+    testarray: [
+      {
+        array1: "wowow1",
+      },
+    ],
   },
   {
     id: 2,
     name: "salade",
     description: "pour faire des salade",
     price: 0.5,
+    testarray: [
+      {
+        array1: "wowow2",
+      },
+    ],
   },
 ];
 
@@ -32,18 +38,24 @@ var expetedOutPut = {
       originalKey: "description",
       newKey: "commonDescription",
     },
+    {
+      originalKey: "testarray",
+      newKey: "testkey",
+    },
   ],
 
   struc: {
-    identifier: "",
+    identifier: VALUE_OBJECT,
+    testkey: VALUE_OBJECT,
     info: {
-      commonName: "",
-      commonDescription: "",
+      commonName: VALUE_OBJECT,
+      commonDescription: VALUE_OBJECT,
     },
+
     info2: [
       {
-        commonName: "",
-        commonDescription: "",
+        commonName: VALUE_OBJECT,
+        commonDescription: VALUE_OBJECT,
       },
     ],
   },
@@ -53,7 +65,7 @@ formatData({ expetedOutPut: expetedOutPut, json: test });
 
 function formatData({ expetedOutPut, json }) {
   let jsonToWork = json;
-
+  let jsonToReturn = [];
   if (!Array.isArray(json)) {
     jsonToWork = Object.values(json);
   }
@@ -70,9 +82,10 @@ function formatData({ expetedOutPut, json }) {
 
     placeDataIntoObject(newStuc, struc, newKeyValue);
 
-    console.log(newStuc)
-    return newStuc;
+    jsonToReturn.push(newStuc);
   });
+
+  return jsonToReturn;
 }
 
 function placeDataIntoObject(newStuc, struc, newKeyValue) {
