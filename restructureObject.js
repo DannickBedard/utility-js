@@ -61,31 +61,35 @@ var expetedOutPut = {
   },
 };
 
-formatData({ expetedOutPut: expetedOutPut, json: test });
+restructurObject({ expetedOutPut: expetedOutPut, json: test });
 
-function formatData({ expetedOutPut, json }) {
-  let jsonToWork = json;
+function restructurObject({ expetedOutPut, json }) {
+  return handleMainProcess(json);
+}
+
+function handleMainProcess(json) {
   let jsonToReturn = [];
-  if (!Array.isArray(json)) {
-    jsonToWork = Object.values(json);
-  }
 
-  jsonToWork.forEach((currentItem) => {
-    let newKeyValue = {};
-    expetedOutPut.keys.forEach((keySetting) => {
-      let value = currentItem[keySetting.originalKey];
-      newKeyValue[keySetting.newKey] = value;
-    });
-
-    let struc = expetedOutPut.struc;
+  handleJson(json).forEach((currentItem) => {
     let newStuc = {};
-
-    placeDataIntoObject(newStuc, struc, newKeyValue);
+    placeDataIntoObject(
+      newStuc,
+      expetedOutPut.struc,
+      getNewKeyValue(currentItem, expetedOutPut)
+    );
 
     jsonToReturn.push(newStuc);
   });
 
   return jsonToReturn;
+}
+
+function getNewKeyValue(currentItem, expetedOutPut) {
+  let newKeyValue = {};
+  expetedOutPut.keys.forEach((keySetting) => {
+    newKeyValue[keySetting.newKey] = currentItem[keySetting.originalKey];
+  });
+  return newKeyValue;
 }
 
 function placeDataIntoObject(newStuc, struc, newKeyValue) {
@@ -102,4 +106,13 @@ function placeDataIntoObject(newStuc, struc, newKeyValue) {
       placeDataIntoObject(newStuc[key], value, newKeyValue);
     }
   }
+}
+
+function handleJson(json) {
+  let jsonToWork = json;
+  if (!Array.isArray(json)) {
+    jsonToWork = Object.values(json);
+  }
+
+  return jsonToWork;
 }
